@@ -35,6 +35,32 @@ function showMessage(msg) {
 	}, 3000);
 }
 
+
+function shuffleTowns() {
+	let towns = Array.from(document.querySelectorAll("#towns option"));
+	document.getElementById("towns").innerHTML = "";
+	shuffleArray(towns);
+	towns.forEach(function (town) {
+		document.getElementById("towns").appendChild(town);
+	});
+	showMessage("Towns shuffled");
+
+	function shuffleArray(array) {
+		for (let i = array.length - 1; i > 0; i--) {
+			let j = Math.floor(Math.random() * (i + 1));
+			let oldElement = array[i];
+			array[i] = array[j];
+			array[j] = oldElement;
+		}
+	}
+}
+
+
+document.addEventListener("DOMContentLoaded", function () {
+
+	document.getElementById("btnShuffle").addEventListener("click", shuffleTowns);
+});
+
 function addTown() {
 	let townName = document.getElementById("townNameForAdd").value;
 	if (townName != "") {
@@ -45,6 +71,7 @@ document.getElementById("towns").appendChild(option);
 showMessage(townName + " added.");
 }
 }
+
 
 
 
