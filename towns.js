@@ -1,3 +1,5 @@
+
+
 $(document).ready(function() {
 	$('#btnDelete').click(deleteTown)
 });
@@ -7,21 +9,32 @@ document.addEventListener("DOMContentLoaded", function() {
 	document.getElementById("btnAdd").addEventListener("click", addTown);
 	});
 
+
 function deleteTown() {
-	let townName = $('#townName').val();
-	$('#townName').val('');
+	let townName = document.getElementById("townName").value;
+	document.getElementById("townName").value = "";
 	let removed = false;
-	for (let option of $('#towns option')) {
-		if (option.textContent == townName) {
-			removed = true;
-			option.remove();
-		}
+	let options = document.querySelectorAll("#towns option");
+	for (let i = 0; i < options.length; i++) {
+	  if (options[i].textContent == townName) {
+		removed = true;
+		options[i].remove();
+	  }
 	}
-	if (removed)
-		$('#result').text(townName + " deleted.");
-	else
-		$('#result').text(townName + " not found.");
+	if (removed) showMessage(townName + " deleted.");
+	else showMessage(townName + " not found.");
 }
+
+  
+function showMessage(msg) {
+	let resultElement = document.getElementById("result");
+	resultElement.textContent = msg;
+	resultElement.style.display = "block";
+	setTimeout(function () {
+	  resultElement.style.display = "none";
+	}, 3000);
+}
+
 function addTown() {
 	let townName = document.getElementById("townNameForAdd").value;
 	if (townName != "") {
@@ -33,11 +46,5 @@ showMessage(townName + " added.");
 }
 }
 
-function showMessage(msg) {
-let resultElement = document.getElementById("result");
-resultElement.textContent = msg;
-resultElement.style.display = "block";
-setTimeout(function () {
-resultElement.style.display = "none";
-}, 3000);
-}
+
+
